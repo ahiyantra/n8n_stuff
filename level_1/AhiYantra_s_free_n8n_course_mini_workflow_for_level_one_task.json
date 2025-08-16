@@ -1,0 +1,64 @@
+{
+  "name": "AhiYantra-s_free_n8n_course_mini-workflow_for-level-one-task",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "c93c6bd5-4108-4ba6-9947-8259d9757d6b",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "resource": "all",
+        "limit": 10,
+        "additionalFields": {
+          "keyword": "automation"
+        }
+      },
+      "type": "n8n-nodes-base.hackerNews",
+      "typeVersion": 1,
+      "position": [
+        220,
+        0
+      ],
+      "id": "c86f2fd1-0062-48bc-b914-fe1ecdfdea73",
+      "name": "Hacker_News_node",
+      "notesInFlow": true,
+      "notes": "Get the ten latest articles."
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Hacker_News_node",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hacker_News_node": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "55d6bb8a-f5fe-4aa5-a537-bc3006c7b978",
+  "meta": {
+    "instanceId": "56b9f1fbdd75085adc30458a8e687841a18964a4791ad614eb19b50f4dc5b94e"
+  },
+  "id": "ZzntvgvWb8Ax3UZx",
+  "tags": []
+}
