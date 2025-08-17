@@ -1,0 +1,61 @@
+{
+  "name": "AhiYantra-s_free-n8n-course_level-two_business-workflow-three",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "fe614749-5b6e-457d-97ff-9f5648edd844",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "authentication": "webhook",
+        "content": "The workflow {{$json.workflow.name}} failed, with the error message: {{$json.execution.error.message}}. Last node executed: {{$env.N8N_HOST}}/execution/{{ $json.execution.id }}. Check this workflow execution here: {{$json.execution.url}} My Unique ID: {{$env.COURSE_UNIQUE_ID}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        220,
+        0
+      ],
+      "id": "00bc8c03-5dab-4f3e-a747-680c7a72914a",
+      "name": "Discord",
+      "credentials": {
+        "discordWebhookApi": {
+          "id": "{{$env.DISCORD_WEBHOOK_API_ID}}",
+          "name": "discord-webhook-account_n8n-server_channel-level-1"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Discord",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "902e68e1-e901-4433-8a9f-febe141fd5e0",
+  "meta": {
+    "instanceId": "{{$env.META_INSTANCE_ID}}"
+  },
+  "id": "iZ10xNjkbowNWfNz",
+  "tags": []
+}

@@ -91,7 +91,7 @@
       "credentials": {
         "httpHeaderAuth": {
           "id": "{{$env.HTTP_HEADER_AUTH_ID}}",
-          "name": "beginner_course"
+          "name": "header-auth-account_beginner-course-level-one"
         }
       }
     },
@@ -188,7 +188,7 @@
       "credentials": {
         "discordWebhookApi": {
           "id": "{{$env.DISCORD_WEBHOOK_API_ID}}",
-          "name": "discord-webhook-account_ n8n-server"
+          "name": "discord-webhook-account_n8n-server_channel-level-1"
         }
       }
     },

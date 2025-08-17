@@ -1,0 +1,281 @@
+{
+  "name": "AhiYantra-s_free-n8n-course_level-two_business-workflow-one",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -340,
+        0
+      ],
+      "id": "09dd1955-e46c-472e-b9d8-8f7c33456294",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "{{$env.AIRTABLE_APP_BASE_ID}}",
+          "mode": "list",
+          "cachedResultName": "Beginner_Course",
+          "cachedResultUrl": "{{$env.AIRTABLE_APP_BASE_URL}}"
+        },
+        "table": {
+          "__rl": true,
+          "value": "{{$env.AIRTABLE_APP_TABLE_ID}}",
+          "mode": "list",
+          "cachedResultName": "businessWorkflow1",
+          "cachedResultUrl": "{{$env.AIRTABLE_APP_TABLE_URL}}"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        -80,
+        -160
+      ],
+      "id": "bf8b91da-a207-41f9-9074-2ac10ea0db0e",
+      "name": "Airtable",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "{{$env.AIRTABLE_TOKEN_API_ID}}",
+          "name": "airtable_beginner-course_personal-access-token"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://restcountries.com/v3.1/all",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "name,region,subregion"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -80,
+        140
+      ],
+      "id": "7cdbeacc-565f-44a5-bd84-1c7f2e709405",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "advanced": true,
+        "mergeByFields": {
+          "values": [
+            {
+              "field1": "customerCountry",
+              "field2": "name.common"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        140,
+        0
+      ],
+      "id": "91f43334-b4a2-4100-a42c-f82d621c09a9",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "{{$env.AIRTABLE_APP_BASE_ID}}",
+          "mode": "list",
+          "cachedResultName": "Beginner_Course",
+          "cachedResultUrl": "{{$env.AIRTABLE_APP_BASE_URL}}"
+        },
+        "table": {
+          "__rl": true,
+          "value": "{{$env.AIRTABLE_APP_TABLE_ID}}",
+          "mode": "list",
+          "cachedResultName": "businessWorkflow1",
+          "cachedResultUrl": "{{$env.AIRTABLE_APP_TABLE_URL}}"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "customerCountry": "={{ $('Airtable').item.json.customerCountry }}",
+            "region": "={{ $json.region }}",
+            "subregion": "={{ $json.subregion }}"
+          },
+          "matchingColumns": [
+            "customerCountry"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "customerID",
+              "displayName": "customerID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "customerCountry",
+              "displayName": "customerCountry",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "customerEmail",
+              "displayName": "customerEmail",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "customerSince",
+              "displayName": "customerSince",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "region",
+              "displayName": "region",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "subregion",
+              "displayName": "subregion",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        360,
+        0
+      ],
+      "id": "d824e5aa-1dd4-4772-8557-7e343e6046a3",
+      "name": "Airtable1",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "{{$env.AIRTABLE_TOKEN_API_ID}}",
+          "name": "airtable_beginner-course_personal-access-token"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Airtable": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Airtable1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "15d927af-cc4a-4307-91b0-b943b182bdaf",
+  "meta": {
+    "instanceId": "{{$env.META_INSTANCE_ID}}"
+  },
+  "id": "kuBSOiyVmjBeIxud",
+  "tags": []
+}
